@@ -1,0 +1,304 @@
+package fisttest;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.applet.*;
+
+//import jdk.internal.jshell.tool.resources.version;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
+import java.awt.*;
+import java.awt.event.*;
+import java.applet.*;
+
+public class fisttest1 {
+    private static WebDriver driver;
+
+    @BeforeClass
+    public static void setup() {
+        System.setProperty("webdriver.chrome.driver", ".\\chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.get("https://sandbox.cardpay.com/MI/cardpayment2.html?orderXml=PE9SREVSIFdBTExFVF9JRD0nODI5OScgT1JERVJfTlVNQkVSPSc0NTgyMTEnIEFNT1VOVD0nMjkxLjg2JyBDVVJSRU5DWT0nRVVSJyAgRU1BSUw9J2N1c3RvbWVyQGV4YW1wbGUuY29tJz4KPEFERFJFU1MgQ09VTlRSWT0nVVNBJyBTVEFURT0nTlknIFpJUD0nMTAwMDEnIENJVFk9J05ZJyBTVFJFRVQ9JzY3NyBTVFJFRVQnIFBIT05FPSc4NzY5OTA5MCcgVFlQRT0nQklMTElORycvPgo8L09SREVSPg==&sha512=998150a2b27484b776a1628bfe7505a9cb430f276dfa35b14315c1c8f03381a90490f6608f0dcff789273e05926cd782e1bb941418a9673f43c47595aa7b8b0d");
+    }
+
+    @Test
+    public void Cardnumber() {
+        WebElement number = driver.findElement(By.id("input-card-number"));
+        number.sendKeys("5555");
+        WebElement name = driver.findElement(By.id("input-card-holder"));
+        name.click();
+        WebElement errtext = driver.findElement(By.xpath("//*[@id=\"card-number-field\"]/div/label"));
+        Assert.assertEquals("Card number is not valid", errtext.getText());
+        number.clear();
+    }
+
+    @Test
+    public void Cardnumber2(){
+        WebElement Cardholdername = driver.findElement(By.id("input-card-holder"));
+        Cardholdername.sendKeys("VIKA APASOVA");
+        WebElement Expires = driver.findElement(By.id("card-expires-month"));
+        Expires.click();
+        Select month = new Select(driver.findElement(By.id("card-expires-month")));
+        month.selectByVisibleText("05");
+        Select yaer = new Select(driver.findElement(By.id("card-expires-year")));
+        yaer.selectByVisibleText("2024");
+        WebElement cvv = driver.findElement(By.id("input-card-cvc"));
+        cvv.sendKeys("222");
+        WebElement pay = driver.findElement(By.id("action-submit"));
+        pay.click();
+        WebElement errtext = driver.findElement(By.xpath("//*[@id=\"card-number-field\"]/div/label"));
+        Assert.assertEquals("Card number is required", errtext.getText());
+
+    }
+
+    @Test
+    public void Cardnumber3() {
+        WebElement number = driver.findElement(By.id("input-card-number"));
+        number.sendKeys("asdf!@#$00000077");
+        WebElement name = driver.findElement(By.id("input-card-holder"));
+        name.click();
+        WebElement errtext = driver.findElement(By.xpath("//*[@id=\"card-number-field\"]/div/label"));
+        Assert.assertEquals("Card number is not valid", errtext.getText());
+        number.clear();
+    }
+
+    @Test
+    public void Cardnholdername() {
+        WebElement number = driver.findElement(By.id("input-card-number"));
+        number.sendKeys("4000000000000002");
+        WebElement Expires = driver.findElement(By.id("card-expires-month"));
+        Expires.click();
+        Select month = new Select(driver.findElement(By.id("card-expires-month")));
+        month.selectByVisibleText("05");
+        Select yaer = new Select(driver.findElement(By.id("card-expires-year")));
+        yaer.selectByVisibleText("2024");
+        WebElement cvv = driver.findElement(By.id("input-card-cvc"));
+        cvv.sendKeys("222");
+        WebElement pay = driver.findElement(By.id("action-submit"));
+        pay.click();
+        WebElement errtext = driver.findElement(By.xpath("//*[@id=\"card-holder-field\"]/div/label"));
+        Assert.assertEquals("Cardholder name is required", errtext.getText());
+
+    }
+
+    @Test
+    public void Cardnholdername2() {
+        WebElement Cardholdername3 = driver.findElement(By.id("input-card-holder"));
+        Cardholdername3.sendKeys("11111");
+        WebElement Expires3 = driver.findElement(By.id("card-expires-month"));
+        Expires3.click();
+        WebElement errtext = driver.findElement(By.xpath("//*[@id=\"card-holder-field\"]/div/label"));
+        Assert.assertEquals("Cardholder name is not valid.", errtext.getText());
+    }
+
+    @Test
+    public void Cardnholdername3() {
+        WebElement Cardholdername3 = driver.findElement(By.id("input-card-holder"));
+        Cardholdername3.sendKeys("@3F#");
+        WebElement Expires3 = driver.findElement(By.id("card-expires-month"));
+        Expires3.click();
+        WebElement errtext = driver.findElement(By.xpath("//*[@id=\"card-holder-field\"]/div/label"));
+        Assert.assertEquals("Cardholder name is not valid.", errtext.getText());
+    }
+
+
+    @Test
+    public void Itog() {
+        WebElement number = driver.findElement(By.id("input-card-number"));
+        number.sendKeys("4000000000000002");
+        WebElement name = driver.findElement(By.id("input-card-holder"));
+        name.click();
+        WebElement Cardholdername = driver.findElement(By.id("input-card-holder"));
+        Cardholdername.sendKeys("VIKA");
+        WebElement Expires = driver.findElement(By.id("card-expires-month"));
+        name.click();
+        Select month = new Select(driver.findElement(By.id("card-expires-month")));
+        month.selectByVisibleText("04");
+        Select yaer = new Select(driver.findElement(By.id("card-expires-year")));
+        yaer.selectByVisibleText("2023");
+        WebElement cvv = driver.findElement(By.id("input-card-cvc"));
+        cvv.sendKeys("222");
+        WebElement pay = driver.findElement(By.id("action-submit"));
+        pay.click();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        WebElement CONFIRMED = driver.findElement(By.xpath("/html/body/header/h2"));
+        Assert.assertEquals("3-D Secure ACS Emulator", CONFIRMED.getText());
+    }
+
+    @Test
+    public void Expires() {
+        Select month = new Select(driver.findElement(By.id("card-expires-month")));
+        month.selectByVisibleText("01");
+        Select yaer = new Select(driver.findElement(By.id("card-expires-year")));
+        yaer.selectByVisibleText("2018");
+        WebElement cvv = driver.findElement(By.id("input-card-cvc"));
+        cvv.sendKeys("222");
+        WebElement errtext = driver.findElement(By.xpath("//*[@id=\"card-expires-field\"]/div/label"));
+        Assert.assertEquals("Invalid data provided", errtext.getText());
+    }
+
+    @Test
+    public void cvv() {
+        WebElement cvv = driver.findElement(By.id("input-card-cvc"));
+        cvv.sendKeys("a!22");
+        WebElement name = driver.findElement(By.id("input-card-holder"));
+        name.click();
+        WebElement errtext = driver.findElement(By.xpath("//*[@id=\"card-cvc-field\"]/div/label"));
+        Assert.assertEquals("CVV2/CVC2/CAV is not valid", errtext.getText());
+    }
+
+    @Test
+    public void cvv2() {
+        WebElement number = driver.findElement(By.id("input-card-number"));
+        number.sendKeys("4000000000000002");
+        WebElement Cardholdername = driver.findElement(By.id("input-card-holder"));
+        Cardholdername.sendKeys("VIKA APASOVA");
+        WebElement Expires = driver.findElement(By.id("card-expires-month"));
+        Expires.click();
+        Select month = new Select(driver.findElement(By.id("card-expires-month")));
+        month.selectByVisibleText("05");
+        Select yaer = new Select(driver.findElement(By.id("card-expires-year")));
+        yaer.selectByVisibleText("2024");
+        WebElement pay = driver.findElement(By.id("action-submit"));
+        pay.click();
+
+    }
+
+    @Test
+    public void ConfirmendAs() {
+        WebElement number = driver.findElement(By.id("input-card-number"));
+        number.sendKeys("4000000000000002");
+        WebElement name = driver.findElement(By.id("input-card-holder"));
+        name.click();
+        WebElement Cardholdername2 = driver.findElement(By.id("input-card-holder"));
+        Cardholdername2.sendKeys("VIKA");
+        WebElement Expires = driver.findElement(By.id("card-expires-month"));
+        name.click();
+        Select month = new Select(driver.findElement(By.id("card-expires-month")));
+        month.selectByVisibleText("04");
+        Select yaer = new Select(driver.findElement(By.id("card-expires-year")));
+        yaer.selectByVisibleText("2023");
+        WebElement cvv = driver.findElement(By.id("input-card-cvc"));
+        cvv.sendKeys("222");
+        WebElement pay = driver.findElement(By.id("action-submit"));
+        pay.click();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        WebElement Emulate = driver.findElement(By.id("success"));
+        Emulate.click();
+        WebElement CONFIRMED2 = driver.findElement(By.xpath("//*[@id=\"payment-status-title\"]/span"));
+        Assert.assertEquals("Success", CONFIRMED2.getText());
+        WebElement CONFIRMED3 = driver.findElement(By.xpath("//*[@id=\"payment-item-status\"]/div[2]"));
+        Assert.assertEquals("CONFIRMED", CONFIRMED3.getText());
+        WebElement CONFIRMED4 = driver.findElement(By.xpath("//*[@id=\"payment-item-cardholder\"]/div[2]"));
+        Assert.assertEquals("VIKA", CONFIRMED4.getText());
+
+
+    }
+    @Test
+    public void ConfirmendAs2() {
+        WebElement number = driver.findElement(By.id("input-card-number"));
+        number.sendKeys("4000000000000002");
+        WebElement name = driver.findElement(By.id("input-card-holder"));
+        name.click();
+        WebElement Cardholdername2 = driver.findElement(By.id("input-card-holder"));
+        Cardholdername2.sendKeys("VIKA");
+        WebElement Expires = driver.findElement(By.id("card-expires-month"));
+        name.click();
+        Select month = new Select(driver.findElement(By.id("card-expires-month")));
+        month.selectByVisibleText("04");
+        Select yaer = new Select(driver.findElement(By.id("card-expires-year")));
+        yaer.selectByVisibleText("2023");
+        WebElement cvv = driver.findElement(By.id("input-card-cvc"));
+        cvv.sendKeys("222");
+        WebElement pay = driver.findElement(By.id("action-submit"));
+        pay.click();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        WebElement Emulate = driver.findElement(By.id("failure"));
+        Emulate.click();
+        WebElement CONFIRMED2 = driver.findElement(By.xpath("//*[@id=\"payment-status-title\"]/span"));
+        Assert.assertEquals("Decline", CONFIRMED2.getText());
+        WebElement CONFIRMED3 = driver.findElement(By.xpath("//*[@id=\"payment-item-status\"]/div[2]"));
+        Assert.assertEquals("Declined by issuing bank", CONFIRMED3.getText());
+        WebElement CONFIRMED4 = driver.findElement(By.xpath("//*[@id=\"payment-item-cardholder\"]/div[2]"));
+        Assert.assertEquals("VIKA", CONFIRMED4.getText());
+    }
+
+    @Test
+    public void Diclinedasnon () {
+        WebElement number = driver.findElement(By.id("input-card-number"));
+        number.sendKeys("5555555555554477");
+        WebElement name = driver.findElement(By.id("input-card-holder"));
+        name.click();
+        WebElement Cardholdername2 = driver.findElement(By.id("input-card-holder"));
+        Cardholdername2.sendKeys("VIKA");
+        WebElement Expires = driver.findElement(By.id("card-expires-month"));
+        name.click();
+        Select month = new Select(driver.findElement(By.id("card-expires-month")));
+        month.selectByVisibleText("04");
+        Select yaer = new Select(driver.findElement(By.id("card-expires-year")));
+        yaer.selectByVisibleText("2023");
+        WebElement cvv = driver.findElement(By.id("input-card-cvc"));
+        cvv.sendKeys("222");
+        WebElement pay = driver.findElement(By.id("action-submit"));
+        pay.click();
+        WebElement CONFIRMED2 = driver.findElement(By.xpath("//*[@id=\"payment-status-title\"]/span"));
+        Assert.assertEquals("Decline", CONFIRMED2.getText());
+        WebElement CONFIRMED3 = driver.findElement(By.xpath("//*[@id=\"payment-item-status\"]/div[2]"));
+        Assert.assertEquals("Declined by issuing bank", CONFIRMED3.getText());
+        WebElement CONFIRMED4 = driver.findElement(By.xpath("//*[@id=\"payment-item-cardholder\"]/div[2]"));
+        Assert.assertEquals("VIKA", CONFIRMED4.getText());
+    }
+
+    @Test
+    public void PendingAs () {
+        WebElement number = driver.findElement(By.id("input-card-number"));
+        number.sendKeys("4000000000000044");
+        WebElement name = driver.findElement(By.id("input-card-holder"));
+        name.click();
+        WebElement Cardholdername2 = driver.findElement(By.id("input-card-holder"));
+        Cardholdername2.sendKeys("VIKA");
+        WebElement Expires = driver.findElement(By.id("card-expires-month"));
+        name.click();
+        Select month = new Select(driver.findElement(By.id("card-expires-month")));
+        month.selectByVisibleText("04");
+        Select yaer = new Select(driver.findElement(By.id("card-expires-year")));
+        yaer.selectByVisibleText("2023");
+        WebElement cvv = driver.findElement(By.id("input-card-cvc"));
+        cvv.sendKeys("222");
+        WebElement pay = driver.findElement(By.id("action-submit"));
+        pay.click();
+        WebElement Emulate = driver.findElement(By.id("failure"));
+        Emulate.click();
+        WebElement CONFIRMED2 = driver.findElement(By.xpath("//*[@id=\"payment-status-title\"]/span"));
+        Assert.assertEquals("Decline", CONFIRMED2.getText());
+        WebElement CONFIRMED3 = driver.findElement(By.xpath("//*[@id=\"payment-item-status\"]/div[2]"));
+        Assert.assertEquals("Declined by issuing bank", CONFIRMED3.getText());
+        WebElement CONFIRMED4 = driver.findElement(By.xpath("//*[@id=\"payment-item-cardholder\"]/div[2]"));
+        Assert.assertEquals("VIKA", CONFIRMED4.getText());
+    }
+    @Test
+    public void Mouse() {
+        WebElement element = driver.findElement(By.id("cvc-hint-toggle"));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
+       WebElement element1 = driver.findElement(By.id("opened"));
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        driver.quit();}
+}
